@@ -60,7 +60,6 @@ while True:
     w.addch(food[0], food[1], curses.ACS_PI)
   else:
     if key == curses.KEY_LEFT or key == curses.KEY_RIGHT:
-      w.addch(int(snake[1][0]), int(snake[1][1]), curses.ACS_CKBOARD)
       tail_1 = snake.pop()
       tail_2 = snake.pop()
       w.addch(int(tail_1[0]), int(tail_2[1]), ' ')
@@ -69,5 +68,7 @@ while True:
       tail = snake.pop()
       w.addch(int(tail[0]), int(tail[1]), ' ')
 
+  if key == curses.KEY_LEFT or key == curses.KEY_RIGHT:
+    w.addch(int(snake[1][0]), int(snake[1][1]), curses.ACS_CKBOARD)
   w.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
   time.sleep(0.1)
