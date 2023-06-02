@@ -20,7 +20,6 @@ snake = [
 
 food = [sh//2, sw//2]
 w.addch(int(food[0]), int(food[1]), curses.ACS_PI)
-
 key = curses.KEY_RIGHT
 
 while True:
@@ -39,9 +38,10 @@ while True:
   else :
     key = key if next_key == -1 else next_key
 
-  if snake[0][0] in [0,sh] or snake[0][1] in [0,sw]:
-    curses.endwin()
-    quit()
+  # if snake[0][0] in [0,sh-1] or snake[0][1] in [0,sw-1]\
+  #   or snake[1][1] in [0, sw-1]:
+  #   curses.endwin()
+  #   quit()
 
   if snake[0] in snake[1:]:
     curses.endwin()
@@ -63,6 +63,11 @@ while True:
   snake.insert(0, body)
   snake.insert(0, new_head)
 
+  if snake[0][0] in [0,sh] or snake[0][1] in [0,sw]\
+    or snake[1][1] in [0, sw]:
+    curses.endwin()
+    quit()
+
   if snake[0] == food or snake[1] == food:
     food = None
     while food is None:
@@ -80,4 +85,4 @@ while True:
 
   w.addch(int(snake[1][0]), int(snake[1][1]), curses.ACS_CKBOARD)
   w.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
-  time.sleep(0.4)
+  # time.sleep(0.1)
