@@ -10,7 +10,9 @@ w.keypad(1)
 w.timeout(100)
 
 snk_x = sw//4
+# snk_x = sw-9
 snk_y = sh//2
+# snk_y = sh-1
 snake = [
   [snk_y, snk_x],
   [snk_y, snk_x-1],
@@ -38,11 +40,6 @@ while True:
   else :
     key = key if next_key == -1 else next_key
 
-  # if snake[0][0] in [0,sh-1] or snake[0][1] in [0,sw-1]\
-  #   or snake[1][1] in [0, sw-1]:
-  #   curses.endwin()
-  #   quit()
-
   if snake[0] in snake[1:]:
     curses.endwin()
     quit()
@@ -64,7 +61,8 @@ while True:
   snake.insert(0, new_head)
 
   if snake[0][0] in [0,sh] or snake[0][1] in [0,sw]\
-    or snake[1][1] in [0, sw]:
+    or snake[1][1] in [0, sw]\
+    or snake[0][1] in [0,sw-1]:
     curses.endwin()
     quit()
 
@@ -72,8 +70,8 @@ while True:
     food = None
     while food is None:
       nf = [
-        random.randint(1, sh-1),
-        random.randint(1, sw-1)
+        random.randint(1, sh-2),
+        random.randint(1, sw-2)
       ]
       food = nf if nf not in snake else None
     w.addch(food[0], food[1], curses.ACS_PI)
@@ -85,4 +83,4 @@ while True:
 
   w.addch(int(snake[1][0]), int(snake[1][1]), curses.ACS_CKBOARD)
   w.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
-  # time.sleep(0.1)
+  # time.sleep(0.4)
